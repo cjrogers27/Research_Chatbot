@@ -1,0 +1,25 @@
+version: "3.1"
+
+nlu:
+  - intent: provide_persona
+    examples: |
+      - I live in [Texas](state)
+      - I live in [CA](state)
+      - my budget is [300](budget) a month
+      - we are a [3](household_size) person household
+      - I’m [35-44](age_bracket)
+
+  - intent: ask_plan_reco
+    examples: |
+      - can you recommend a health plan
+      - what plan should I pick
+
+  - intent: ask_subsidy
+    examples: |
+      - do I qualify for a subsidy
+      - will I get tax credits
+
+  - intent: ask_provider_network
+    examples: |
+      - is [Dr. Smith](preferred_provider) in network
+      - do you cover [Providence Hospital](preferred_provider)

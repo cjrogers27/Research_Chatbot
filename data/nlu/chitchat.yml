@@ -1,8 +1,0 @@
-nlu:
-  - intent: chit_chat
-    examples: |
-      - who are you
-      - what can you do
-      - tell me about yourself
-      - how are you
-      - just chatting

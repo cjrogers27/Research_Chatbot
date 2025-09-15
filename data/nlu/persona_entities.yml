@@ -1,8 +1,0 @@
-nlu:
-  - intent: provide_persona
-    examples: |
-      - I'm in [CA](state) with a [3](household_size) person household and my budget is around [$350](budget) per month
-      - we live in [Texas](state) and our [household size](household_size) is [4](household_size)
-      - my [age bracket](age_bracket) is [45-54](age_bracket), income is [45-60k](income_bracket)
-      - I prefer [Kaiser](preferred_provider)
-      - budget is [low](budget), state is [NY](state)

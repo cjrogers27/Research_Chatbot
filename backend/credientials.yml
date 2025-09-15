@@ -1,0 +1,5 @@
+# research_chatbot/backend/credentials.yml
+rest:
+  # no config needed
+
+# (If you have other channels like telegram/slack, keep them below)

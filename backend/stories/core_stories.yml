@@ -1,0 +1,17 @@
+stories:
+- story: greeting flow
+  steps:
+  - intent: greet
+  - action: utter_greet_privacy_on
+
+- story: plan recommendation flow
+  steps:
+  - intent: ask_plan_reco
+  - action: utter_disclaimer
+  - action: action_recommend_plans
+
+- story: bank account flow
+  steps:
+  - intent: start_bank_account
+  - action: action_start_bank_account
+

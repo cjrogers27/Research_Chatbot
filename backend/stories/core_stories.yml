@@ -1,3 +1,5 @@
+version: "3.1"
+
 stories:
 - story: greeting flow
   steps:
@@ -14,4 +16,5 @@ stories:
   steps:
   - intent: start_bank_account
   - action: action_start_bank_account
+
 

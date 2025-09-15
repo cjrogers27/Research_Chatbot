@@ -1,0 +1,31 @@
+rules:
+- rule: goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: yes/no acknowledgements
+  steps:
+  - intent: affirm
+  - action: utter_acknowledge_yes
+
+- rule: no acknowledgement
+  steps:
+  - intent: deny
+  - action: utter_acknowledge_no
+
+- rule: provider/subsidy/fees/min-balance info
+  steps:
+  - intent: ask_provider_network
+  - action: utter_provider_network_info
+  - intent: ask_subsidy
+  - action: utter_subsidy_info
+  - intent: ask_fees
+  - action: utter_fees_info
+  - intent: ask_min_balance
+  - action: utter_min_balance_info
+
+- rule: chitchat
+  steps:
+  - intent: chit_chat
+  - action: utter_chitchat

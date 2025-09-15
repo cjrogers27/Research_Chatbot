@@ -1,4 +1,20 @@
+version: "3.1"
+
 stories:
+- story: greet then goodbye
+  steps:
+  - intent: greet
+  - action: utter_greet_privacy_on
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: ask about provider then subsidy
+  steps:
+  - intent: ask_provider_network
+  - action: utter_provider_network_info
+  - intent: ask_subsidy
+  - action: utter_subsidy_info
+
 - story: happy path 1
   steps:
   - user: |

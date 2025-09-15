@@ -1,0 +1,153 @@
+intents:
+ - greet
+ - goodbye
+ - affirm
+ - deny
+ - out_of_scope
+ - provide_persona
+ - ask_plan_reco
+ - ask_subsidy
+ - ask_provider_network
+ - start_bank_account
+ - ask_fees
+ - ask_min_balance
+ - chit_chat
+
+
+entities:
+ - state
+ - budget
+ - household_size
+ - age_bracket
+ - income_bracket
+ - preferred_provider
+
+
+slots:
+ privacy_cue:
+   type: text
+   influence_conversation: true
+   mappings:
+     - type: from_text
+
+
+ ai_literacy:
+   type: text
+   influence_conversation: true
+   mappings:
+     - type: from_text
+
+
+ domain:
+   type: text
+   influence_conversation: true
+   mappings:
+     - type: from_text
+
+
+ worker_id:
+   type: text
+   mappings:
+     - type: from_text
+
+
+ state:
+   type: text
+   mappings:
+     - type: from_entity
+       entity: state
+
+
+ budget:
+   type: text
+   mappings:
+     - type: from_entity
+       entity: budget
+
+
+ age_bracket:
+   type: text
+   mappings:
+     - type: from_entity
+       entity: age_bracket
+
+
+ income_bracket:
+   type: text
+   mappings:
+     - type: from_entity
+       entity: income_bracket
+
+
+ household_size:
+   type: text
+   mappings:
+     - type: from_entity
+       entity: household_size
+
+
+ preferred_provider:
+   type: text
+   mappings:
+     - type: from_entity
+       entity: preferred_provider
+
+
+responses:
+ utter_greet_privacy_on:
+   - text: "Hey, I’m Avo 🥑. I’ll explain what I’m doing as we go and keep things minimal. Ready to explore options?"
+   - text: "Hi! I’m Avo. I’ll be transparent about how I use your inputs. Want to get started?"
+
+
+ utter_greet_privacy_off:
+   - text: "Hi, I’m Avo 🥑. I’ll ask a few basics and suggest options. Ready when you are!"
+
+
+ utter_disclaimer:
+   - text: "I’m not a medical or financial advisor. I compare features/costs based on what you share."
+
+
+ utter_fallback:
+   - text: "I’m not fully sure I got that. Could you rephrase or ask in another way?"
+
+
+ utter_goodbye:
+   - text: "Got it. I’ll be here if you need me again—take care!"
+   - text: "Thanks for chatting. Wishing you a smooth day!"
+
+
+ utter_acknowledge_yes:
+   - text: "Great—on the same page!"
+   - text: "Perfect, moving ahead."
+
+
+ utter_acknowledge_no:
+   - text: "No worries—let’s adjust."
+   - text: "All good. We can try a different path."
+
+
+ utter_chitchat:
+   - text: "I’m here for it—what’s on your mind?"
+   - text: "Happy to chat! Want to keep exploring plans too?"
+
+
+ utter_provider_network_info:
+   - text: "Provider networks vary by plan. If you tell me your preferred provider, I can check match likelihoods."
+
+
+ utter_subsidy_info:
+   - text: "Subsidies depend on income, household size, and state. Share those and I can estimate eligibility ranges."
+
+
+ utter_fees_info:
+   - text: "Typical fees: monthly premiums, deductibles, copays, and out-of-network costs. Tell me your budget and state to narrow down."
+
+
+ utter_min_balance_info:
+   - text: "Minimum balances or deductibles vary by plan. If you share a budget range, I’ll filter plans with lower thresholds."
+
+
+actions:
+ - action_recommend_plans
+ - action_start_bank_account
+ - action_set_condition_flags

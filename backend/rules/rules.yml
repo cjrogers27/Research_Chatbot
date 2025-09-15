@@ -1,20 +1,22 @@
+version: "3.1"
+
 rules:
-- rule: goodbye
+- rule: respond to goodbye
   steps:
   - intent: goodbye
   - action: utter_goodbye
 
-- rule: yes/no acknowledgements
+- rule: respond to affirm
   steps:
   - intent: affirm
   - action: utter_acknowledge_yes
 
-- rule: no acknowledgement
+- rule: respond to deny
   steps:
   - intent: deny
   - action: utter_acknowledge_no
 
-- rule: provider/subsidy/fees/min-balance info
+- rule: respond to provider / subsidy / fees / min balance
   steps:
   - intent: ask_provider_network
   - action: utter_provider_network_info
@@ -25,7 +27,8 @@ rules:
   - intent: ask_min_balance
   - action: utter_min_balance_info
 
-- rule: chitchat
+- rule: respond to chitchat
   steps:
   - intent: chit_chat
   - action: utter_chitchat
+

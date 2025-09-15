@@ -1,0 +1,85 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: rasa
+      POSTGRES_PASSWORD: rasa
+      POSTGRES_DB: rasa
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  duckling:
+    image: rasa/duckling:0.1.6.5
+    # On Apple Silicon, this image is amd64; use emulation.
+    platform: linux/amd64
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+
+  rasa:
+    image: rasa/rasa:3.6.20
+    restart: unless-stopped
+    # Run a persistent HTTP server on 0.0.0.0:5005
+    command: ["run", "--enable-api", "--cors", "*", "--port", "5005", "--debug"]
+    environment:
+      RASA_TELEMETRY_ENABLED: "false"
+      SQLALCHEMY_SILENCE_UBER_WARNING: "1"
+    volumes:
+      # Mount the real backend folder that contains config.yml, domain.yml, data/, rules/, stories/, etc.
+      - ./backend:/app
+    ports:
+      - "5005:5005"
+    depends_on:
+      - duckling
+      - postgres
+
+  action_server:
+    image: rasa/rasa-sdk:3.6.2
+    # This image is amd64-only; use emulation on Apple Silicon.
+    platform: linux/amd64
+    restart: unless-stopped
+    working_dir: /app
+    command: ["start", "--actions", "actions", "--port", "5055"]
+    volumes:
+      - ./backend/actions:/app/actions
+    ports:
+      - "5055:5055"
+    depends_on:
+      - rasa
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    working_dir: /app
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      NEXT_TELEMETRY_DISABLED: "1"
+      # Used by frontend/pages/api/chat.ts to call Rasa via Docker DNS
+      RASA_BASE_URL: http://rasa:5005
+      # Optional: if any client-side code hits the backend directly (not required for the API route)
+      NEXT_PUBLIC_BACKEND_URL: http://localhost:5005
+    command: ["npm", "run", "dev"]
+    ports:
+      - "3000:3000"
+    volumes:
+      # Live code mount for hot reload in dev
+      - ./frontend:/app
+      # Keep container node_modules isolated so host's node_modules don't interfere
+      - /app/node_modules
+    depends_on:
+      - rasa
+      - action_server
+
+volumes:
+  pgdata:
